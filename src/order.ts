@@ -6,7 +6,7 @@ type OrderSummary = {
   parcels: IParcel[];
 };
 
-interface IOrder {
+export interface IOrder {
   parcels: IParcel[];
   totalCost: number;
   summary: OrderSummary;
