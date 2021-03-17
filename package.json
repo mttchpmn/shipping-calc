@@ -1,0 +1,38 @@
+{
+  "name": "shipping-calc",
+  "version": "1.0.0",
+  "description": "Typescript utility for calculating the cost of shipping an order of parcels",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "mocha -r 'ts-node/register' --timeout 30000 'src/test/**/*.test.ts'",
+    "prepare": "yarn test && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mttchpmn/shipping-calc.git"
+  },
+  "keywords": [
+    "shipping",
+    "calculator",
+    "courier",
+    "orders",
+    "typescript",
+    "parcel"
+  ],
+  "author": "Matt Chapman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mttchpmn/shipping-calc/issues"
+  },
+  "homepage": "https://github.com/mttchpmn/shipping-calc#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.15",
+    "@types/mocha": "^8.2.1",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "ts-node": "^9.1.1"
+  },
+  "dependencies": {
+    "typescript": "^4.2.3"
+  }
+}
