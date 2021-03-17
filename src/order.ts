@@ -9,7 +9,7 @@ type OrderSummary = {
 interface IOrder {
   parcels: IParcel[];
   totalCost: number;
-  orderSummary: OrderSummary;
+  summary: OrderSummary;
 }
 
 export class Order implements IOrder {
@@ -31,10 +31,10 @@ export class Order implements IOrder {
     return result;
   }
 
-  public get orderSummary() {
+  public get summary() {
     return {
       totalCost: this.totalCost,
-      parcels: this._parcels.map((p) => ({
+      parcels: this.parcels.map((p) => ({
         // Explicitly map fields to avoid revealing private implementation details
         height: p.height,
         width: p.width,
