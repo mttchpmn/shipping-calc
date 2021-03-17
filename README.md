@@ -50,6 +50,18 @@ const fastOrder = new Order(orderItems, true);
 
 Coming soon!
 
-## Planned Features
+## TODO
 
-Coming soon!
+- Implement remaining steps (4 & 5)
+- Extend Parcel class using polymorphism
+- Abstract and improve parcel cost calculation method
+- Utilise helper library for generating random test inputs
+- Abstract parcel config into own class, exposing API for getting and setting parcel config sizes
+- Implement config validation for asserting no overlap exists between parcel sizes
+- Add JSDoc documentation for classes and usage
+- Add missing sections to README
+- Publish to NPM so package consumers may install
+- Implement CI/CD pipeline using Github workflows
+- Implement code coverage reporting
+- Move each class/interface to its own file
+- Remove unneccessary duplication of interface/input types
