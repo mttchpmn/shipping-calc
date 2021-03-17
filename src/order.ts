@@ -20,6 +20,7 @@ export class Order implements IOrder {
   private _parcels: IParcel[];
   private _fastShipping: boolean;
 
+  // TODO - Use an object for fastShipping flag for better semantics
   constructor(parcelInput: ParcelInput[], fastShipping = false) {
     this._parcels = parcelInput.map((p) => new Parcel(p));
     this._fastShipping = fastShipping;
