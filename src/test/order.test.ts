@@ -40,6 +40,12 @@ describe("Order", function () {
 
       expect(result.totalCost).to.equal(33);
     });
+
+    it("should calculate total order cost correctly, when fast shipping is selected", () => {
+      const result = new Order(VALID_PARCEL_INPUTS, true);
+
+      expect(result.totalCost).to.equal(66);
+    });
   });
 
   describe("Generate summary", function () {
@@ -48,6 +54,38 @@ describe("Order", function () {
 
       const expectedResult = {
         totalCost: 33,
+        fastShipping: {
+          selected: false,
+          cost: 0,
+        },
+        parcels: [
+          {
+            height: 50,
+            width: 100,
+            depth: 150,
+            cost: 25,
+          },
+          {
+            height: 5,
+            width: 10,
+            depth: 15,
+            cost: 8,
+          },
+        ],
+      };
+
+      expect(result.summary).to.deep.equal(expectedResult);
+    });
+
+    it("should generate order summary correctly when fast shipping is selected", () => {
+      const result = new Order(VALID_PARCEL_INPUTS, true);
+
+      const expectedResult = {
+        totalCost: 66,
+        fastShipping: {
+          selected: true,
+          cost: 33,
+        },
         parcels: [
           {
             height: 50,
