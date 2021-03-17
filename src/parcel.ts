@@ -39,8 +39,20 @@ export class Parcel implements IParcel {
   }
 
   public get cost(): number {
-    // TODO - Implement cost calculation
-    return 10;
+    const max = this.getLargestDimension();
+
+    // TODO - Avoid hardcoding these values inside the class
+    if (max < 10) return 3;
+    if (max < 50) return 8;
+    if (max < 100) return 15;
+
+    return 25;
+  }
+
+  private getLargestDimension(): number {
+    return [this.width, this.height, this.depth].reduce((acc, cur) =>
+      cur > acc ? cur : acc
+    );
   }
 
   private validate(input: number[]): void {
