@@ -54,6 +54,7 @@ export class Order implements IOrder {
         height: p.height,
         width: p.width,
         depth: p.depth,
+        weight: p.weight,
         cost: p.cost,
       })),
     };

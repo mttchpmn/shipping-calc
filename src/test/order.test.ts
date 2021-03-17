@@ -10,11 +10,13 @@ describe("Order", function () {
       height: 50,
       width: 100,
       depth: 150,
+      weight: 1,
     },
     {
       height: 5,
       width: 10,
       depth: 15,
+      weight: 1,
     },
   ];
 
@@ -64,12 +66,14 @@ describe("Order", function () {
             width: 100,
             depth: 150,
             cost: 25,
+            weight: 1,
           },
           {
             height: 5,
             width: 10,
             depth: 15,
             cost: 8,
+            weight: 1,
           },
         ],
       };
@@ -92,12 +96,14 @@ describe("Order", function () {
             width: 100,
             depth: 150,
             cost: 25,
+            weight: 1,
           },
           {
             height: 5,
             width: 10,
             depth: 15,
             cost: 8,
+            weight: 1,
           },
         ],
       };
