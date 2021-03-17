@@ -8,6 +8,6 @@ export class InvalidInputError extends Error {
 export class MissingInputError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "InvalidInputError";
+    this.name = "MissingInputError";
   }
 }
