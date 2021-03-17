@@ -2,6 +2,10 @@
 
 Typescript utility for calculating the cost of shipping an order of parcels.
 
+## Installation
+
+Coming soon!
+
 ## Usage
 
 Create a new shipping order and calculate the total cost.
@@ -34,4 +38,15 @@ const totalCost = order.totalCost;
 
 // Get order summary
 const orderSummary = order.summary;
+
+// Create an order with fast shipping (doubles the total cost)
+const fastOrder = new Order(orderItems, true);
 ```
+
+## Contributing
+
+Coming soon!
+
+## Planned Features
+
+Coming soon!
