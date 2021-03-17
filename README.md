@@ -17,16 +17,19 @@ const orderItems = [
     width: 5,
     height: 7,
     depth: 9,
+    weight: 1
   },
   {
     width: 10,
     height: 5,
     depth: 4,
+    weight: 1
   },
   {
     width: 7,
     height: 3,
-    depth: 155555,
+    depth: 1,
+    weight: 1
   },
 ];
 
