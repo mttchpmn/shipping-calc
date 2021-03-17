@@ -81,6 +81,17 @@ describe("Parcel", function () {
       expect(result.cost).to.equal(25);
     });
 
+    it("should calculate cost correctly, when weight is over the limit", () => {
+      const result = new Parcel({
+        height: 9,
+        width: 150,
+        depth: 9,
+        weight: 20,
+      });
+
+      expect(result.cost).to.equal(45);
+    });
+
     // TODO - Refine this test case
     it("should calculate cost correctly, when one dimension is over the size limit", () => {
       const result = new Parcel({ height: 9, width: 51, depth: 9, weight: 1 });
