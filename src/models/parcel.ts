@@ -61,7 +61,7 @@ export class Parcel implements IParcel {
     const { weight: weightLimit, cost } = type[0];
 
     return (
-      cost + (this.weight > weightLimit ? this.weight - weightLimit * 2 : 0)
+      cost + (this.weight > weightLimit ? (this.weight - weightLimit) * 2 : 0)
     );
   }
 
