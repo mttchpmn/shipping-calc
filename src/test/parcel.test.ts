@@ -1,6 +1,6 @@
 import chai from "chai";
 import { InvalidInputError, MissingInputError } from "../errors";
-import { Parcel } from "../parcel";
+import { Parcel } from "../models/parcel";
 
 const { expect } = chai;
 
@@ -9,6 +9,7 @@ describe("Parcel", function () {
     height: 5,
     width: 10,
     depth: 15,
+    weight: 1,
   };
 
   describe("Create", function () {
@@ -57,32 +58,43 @@ describe("Parcel", function () {
     // TODO - Use randomised, and more realistic package inputs
 
     it("should calculate cost correctly, given small parcel dimensions", () => {
-      const result = new Parcel({ height: 9, width: 9, depth: 9 });
+      const result = new Parcel({ height: 9, width: 9, depth: 9, weight: 1 });
 
       expect(result.cost).to.equal(3);
     });
 
     it("should calculate cost correctly, given medium parcel dimensions", () => {
-      const result = new Parcel({ height: 9, width: 12, depth: 9 });
+      const result = new Parcel({ height: 9, width: 12, depth: 9, weight: 1 });
 
       expect(result.cost).to.equal(8);
     });
 
     it("should calculate cost correctly, given large parcel dimensions", () => {
-      const result = new Parcel({ height: 9, width: 55, depth: 9 });
+      const result = new Parcel({ height: 9, width: 55, depth: 9, weight: 1 });
 
       expect(result.cost).to.equal(15);
     });
 
     it("should calculate cost correctly, given extra-large parcel dimensions", () => {
-      const result = new Parcel({ height: 9, width: 150, depth: 9 });
+      const result = new Parcel({ height: 9, width: 150, depth: 9, weight: 1 });
 
       expect(result.cost).to.equal(25);
     });
 
+    it("should calculate cost correctly, when weight is over the limit", () => {
+      const result = new Parcel({
+        height: 9,
+        width: 150,
+        depth: 9,
+        weight: 20,
+      });
+
+      expect(result.cost).to.equal(45);
+    });
+
     // TODO - Refine this test case
     it("should calculate cost correctly, when one dimension is over the size limit", () => {
-      const result = new Parcel({ height: 9, width: 51, depth: 9 });
+      const result = new Parcel({ height: 9, width: 51, depth: 9, weight: 1 });
 
       expect(result.cost).to.equal(15);
     });

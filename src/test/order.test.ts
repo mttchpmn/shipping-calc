@@ -1,6 +1,6 @@
 import chai from "chai";
 import { InvalidInputError } from "../errors";
-import { Order } from "../order";
+import { Order } from "../models/order";
 
 const { expect } = chai;
 
@@ -10,11 +10,13 @@ describe("Order", function () {
       height: 50,
       width: 100,
       depth: 150,
+      weight: 1,
     },
     {
       height: 5,
       width: 10,
       depth: 15,
+      weight: 1,
     },
   ];
 
@@ -46,6 +48,26 @@ describe("Order", function () {
 
       expect(result.totalCost).to.equal(66);
     });
+
+    it("should calculate total order cost correctly, when weight is over limit", () => {
+      const input = [
+        {
+          height: 50,
+          width: 100,
+          depth: 150,
+          weight: 1,
+        },
+        {
+          height: 5,
+          width: 10,
+          depth: 15,
+          weight: 8,
+        },
+      ];
+      const result = new Order(input);
+
+      expect(result.totalCost).to.equal(43);
+    });
   });
 
   describe("Generate summary", function () {
@@ -64,12 +86,14 @@ describe("Order", function () {
             width: 100,
             depth: 150,
             cost: 25,
+            weight: 1,
           },
           {
             height: 5,
             width: 10,
             depth: 15,
             cost: 8,
+            weight: 1,
           },
         ],
       };
@@ -92,12 +116,58 @@ describe("Order", function () {
             width: 100,
             depth: 150,
             cost: 25,
+            weight: 1,
           },
           {
             height: 5,
             width: 10,
             depth: 15,
             cost: 8,
+            weight: 1,
+          },
+        ],
+      };
+
+      expect(result.summary).to.deep.equal(expectedResult);
+    });
+
+    it("should generate order summary correctly when weight is over limit", () => {
+      const input = [
+        {
+          height: 50,
+          width: 100,
+          depth: 150,
+          weight: 1,
+        },
+        {
+          height: 5,
+          width: 10,
+          depth: 15,
+          weight: 8,
+        },
+      ];
+      const result = new Order(input);
+
+      const expectedResult = {
+        totalCost: 43,
+        fastShipping: {
+          selected: false,
+          cost: 0,
+        },
+        parcels: [
+          {
+            height: 50,
+            width: 100,
+            depth: 150,
+            cost: 25,
+            weight: 1,
+          },
+          {
+            height: 5,
+            width: 10,
+            depth: 15,
+            cost: 18,
+            weight: 8,
           },
         ],
       };

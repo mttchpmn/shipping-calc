@@ -1,29 +1,36 @@
-import { InvalidInputError, MissingInputError } from "./errors";
+import { InvalidInputError, MissingInputError, ConfigError } from "../errors";
+import { ParcelConfig, parcelConfig } from "../parcel-config";
 
 export interface IParcel {
   width: number;
   height: number;
   depth: number;
   cost: number;
-  // TODO - Weight will be relevant in future
+  weight: number;
 }
 
+// TODO - Remove type duplication
 export type ParcelInput = {
   height: number;
   width: number;
   depth: number;
+  weight: number;
 };
 
 export class Parcel implements IParcel {
+  static CONFIG: ParcelConfig = parcelConfig;
+
   private _height: number;
   private _width: number;
   private _depth: number;
+  private _weight: number;
 
-  constructor({ height, width, depth }: ParcelInput) {
-    this.validate([height, width, depth]);
+  constructor({ height, width, depth, weight }: ParcelInput) {
+    this.validate([height, width, depth, weight]);
     this._height = height;
     this._width = width;
     this._depth = depth;
+    this._weight = weight;
   }
 
   public get height(): number {
@@ -38,15 +45,24 @@ export class Parcel implements IParcel {
     return this._depth;
   }
 
+  public get weight(): number {
+    return this._weight;
+  }
+
   public get cost(): number {
     const max = this.getLargestDimension();
 
-    // TODO - Avoid hardcoding these values inside the class
-    if (max < 10) return 3;
-    if (max < 50) return 8;
-    if (max < 100) return 15;
+    const type = Parcel.CONFIG.filter((c) => max >= c.min && max <= c.max);
+    if (type.length !== 1)
+      throw new ConfigError(
+        "Invalid config. Multiple parcel type matches found."
+      );
 
-    return 25;
+    const { weight: weightLimit, cost } = type[0];
+
+    return (
+      cost + (this.weight > weightLimit ? (this.weight - weightLimit) * 2 : 0)
+    );
   }
 
   private getLargestDimension(): number {
