@@ -1,4 +1,4 @@
-import { IOrder, Order } from "./order";
-import { IParcel, Parcel } from "./parcel";
+import { IOrder, Order } from "./models/order";
+import { IParcel, Parcel } from "./models/parcel";
 
 export { IOrder, Order, IParcel, Parcel };

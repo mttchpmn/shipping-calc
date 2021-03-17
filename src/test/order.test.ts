@@ -1,6 +1,6 @@
 import chai from "chai";
 import { InvalidInputError } from "../errors";
-import { Order } from "../order";
+import { Order } from "../models/order";
 
 const { expect } = chai;
 

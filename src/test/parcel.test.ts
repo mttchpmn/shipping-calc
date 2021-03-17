@@ -1,6 +1,6 @@
 import chai from "chai";
 import { InvalidInputError, MissingInputError } from "../errors";
-import { Parcel } from "../parcel";
+import { Parcel } from "../models/parcel";
 
 const { expect } = chai;
 

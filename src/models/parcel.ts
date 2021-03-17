@@ -1,4 +1,4 @@
-import { InvalidInputError, MissingInputError } from "./errors";
+import { InvalidInputError, MissingInputError } from "../errors";
 
 export interface IParcel {
   width: number;
