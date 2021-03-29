@@ -1,0 +1,76 @@
+# REVIEW
+
+## Refactor Order class to expect array of parcels as input
+
+- That way the consumer can create a single parcel and get its cost
+- Or use overloading to support both cases (C#)
+
+## Use config object as second parameter to order constructor
+
+- More semantic
+- Can inject the default config there? (Which can be overridden)
+
+## Create a Config class and then set that as a dependency of the order (?)
+
+- Though it's the parcel that needs access to the config - could do both?
+
+## Improve calculations
+
+- Magic numbers: `return this.fastShipping ? result * 2 : result;`
+
+## Abstract summary into its own class (?)
+
+## Create internal private 'calculateShippingCost' method
+
+- Tidies up the get summary() function, more readable code
+
+## Use a DTO for parcels in the summary
+
+- Could use AutoMapper (C#) to map each parcel to DTO and avoid revealing implementation detail
+
+## Use factory pattern to return parcel subclass when creating new parcel
+
+- LargeParcel, SmallParcel etc classes extend abstract parcel class
+- Factory method on Parcel class returns correct class based on size (or could create ParcelFactory)
+- Parcel no longer needs to calculate its own cost, it is set explicitly
+- Size and weight limits live in Parcel class (private) and can be updated by consumers
+- Parcel base class also exposes ability to add new sizes
+- This avoids the need for the config file
+
+## Decision on how to implement size/weight config dependent on how library will be consumed
+
+- If by developers, they can extend existing classes and add new ones
+- If by clients / consumers / non-devs, then they cannot add classes, so limits wil need to be user-defined
+- ALTHOUGH - in real world, users don't get to set Courier company size limits, so this problem is arguably moot
+
+## Refactor Parcel class(es)
+
+- Ultimate iteration of Parcel class could look like:
+
+```typescript
+class LargeParcel extends Parcel = {
+  maxDimension: 100; // cm
+  maxWeight: 6; // kg
+  baseCost: 15; // Dollars
+  overWeightCost: 2; // $ per kg overweight
+  fastShippingCostFactor: 2; // Could be inherited from parent
+}
+
+class HeavyParcel extends Parcel = {
+  maxDimension: Number.POSITIVE_INFINITY; // No limit
+  maxWeight: 50;
+  baseCost: 50;
+  overWeightCost: 1;
+}
+```
+
+- Refactoring the Parcel class in this fashion allows for the use of polymorphism, and coding to the IParcel _interface_, rather than an explicit class.
+- Us defining the explicit class shapes makes sense as this is analogous to the real world, where the shipping company dictates its own parcel sizes
+- These parcel classes could be public APIs, allowing the consumer to explicitly instatiated them (with validation to throw on illegal input)
+- Using abstract factory pattern, different ParcelFactories could be created (domestic / international shipping etc)
+- When creating a new parcel instance, factory method could check parameters against each parcel class, resulting in an array of parcel options, and then return instance of the cheapest option
+- This will require balance to not violate Open-Closed principle
+
+## Improve test coverage and robustness
+
+- Use external library for generate real-world test data, increasing the likelihood of covering edge cases and catching bugs
